@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { trackEvent } from "@/lib/analytics";
-import { ArrowRightIcon, CateringIcon } from "./icons";
+import { ArrowRightIcon, CateringIcon, CloseIcon } from "./icons";
 
 /**
  * A short, skippable welcome tour for first-time visitors: a welcome card, then three steps that
@@ -124,7 +124,7 @@ export function WelcomeTour() {
           aria-label="Close the tour"
           onClick={() => close("skipped")}
         >
-          ×
+          <CloseIcon size={20} />
         </button>
         {step === 0 ? (
           <span className="tour-badge">

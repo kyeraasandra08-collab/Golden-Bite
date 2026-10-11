@@ -912,15 +912,25 @@ h1 em {
   top: 12px;
   margin: 0;
 }
-.close-button {
+.close-button,
+.tour-close {
+  /* Icon centred in a round 44px tap target, so the focus ring circles it evenly on every phone. */
+  display: grid;
+  place-items: center;
   width: 44px;
   height: 44px;
+  padding: 0;
   border: 0;
   border-radius: 50%;
   background: transparent;
   color: #d6ccbc;
-  font-size: 1.6rem;
-  line-height: 1;
+  line-height: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.close-button .icon,
+.tour-close .icon {
+  display: block;
 }
 .close-button:hover {
   color: var(--gold-bright);
@@ -1900,13 +1910,11 @@ footer a:hover {
   position: absolute;
   top: 8px;
   right: 8px;
-  width: 44px;
-  height: 44px;
-  border: 0;
-  background: transparent;
   color: #d8cdbb;
-  font-size: 1.5rem;
-  cursor: pointer;
+}
+.tour-close:hover {
+  color: var(--gold-bright);
+  background: rgba(255, 250, 243, 0.06);
 }
 .tour-actions {
   display: flex;

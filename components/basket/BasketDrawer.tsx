@@ -1,6 +1,7 @@
 "use client";
 
 import type { Ref } from "react";
+import { CloseIcon } from "../icons";
 import { OrderSummary } from "./OrderSummary";
 
 /**
@@ -20,7 +21,7 @@ export function BasketDrawer({ ref }: { ref: Ref<HTMLDialogElement> }) {
       <div className="order-card drawer-order">
         <form method="dialog" className="close-form">
           <button className="close-button" type="submit" aria-label="Close basket">
-            ×
+            <CloseIcon size={22} />
           </button>
         </form>
         <OrderSummary titleId="basket-dialog-title" />
