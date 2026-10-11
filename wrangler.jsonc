@@ -1,0 +1,11 @@
+// Cloudflare deploy settings. The site is a static export: `npm run build` writes it to out/,
+// and Cloudflare serves those files as-is (no server code). public/_headers is copied into
+// out/ and applies the security headers; unknown addresses get the 404 page.
+{
+  "name": "golden-bite",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  }
+}
