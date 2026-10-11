@@ -38,7 +38,7 @@ The owner or an administrator receives and fulfils incoming orders. The first re
 
 ## Tech stack
 
-- **Next.js 16 (App Router) + React 19** — the page is server-rendered; only the menu and basket ship JavaScript.
+- **Next.js 16 (App Router) + React 19** — the page is pre-built as static files; only the menu and basket ship JavaScript.
 - **TypeScript** (strict) and plain CSS with design tokens in `app/globals.css`.
 - **Vitest** for unit tests, **ESLint** (`eslint-config-next`) and **Prettier**.
 - **PostgreSQL** (planned) when menu editing, orders and accounts are introduced.
@@ -132,26 +132,35 @@ The interface uses Golden Bite's black-and-gold identity, with warm food imagery
 - [x] Add pickup and delivery checkout details.
 - [x] Add Mobile Money payment instructions for pre-delivery and pay-on-delivery orders.
 - [x] Add catering enquiries via WhatsApp.
-- [x] Hosting: Vercel (imported from GitHub; every push to `main` redeploys).
-- [ ] Select the launch domain and add it in Vercel → Settings → Domains.
+- [ ] Hosting: Cloudflare Pages (see below); every push to `main` redeploys.
+- [ ] Select the launch domain and add it in Cloudflare Pages → Custom domains.
 - [ ] Publish and link the website to the Golden Bite Google Business Profile after verification.
 - [x] Catering enquiry form (date, guests, budget).
 - [ ] Database-backed menu with an admin page (edit prices, mark items sold out).
 - [ ] Order-management dashboard and online MoMo payments.
 - [ ] Optional customer accounts after guest ordering is established.
 
-## Hosting on Vercel
+## Hosting on Cloudflare Pages (free)
 
-1. vercel.com → **Add New… → Project** → import the GitHub repository. Framework is detected as Next.js; keep the default build settings.
-2. **Environment variables:** `NEXT_PUBLIC_SITE_URL` = the live address (e.g. `https://golden-bite.vercel.app`, later the custom domain).
-3. **Deploy.** Every push to `main` then deploys automatically, and pull requests get preview links.
-4. **Analytics → Enable** in the project to switch on visitor stats.
+The site is built as plain files (`npm run build` → `out/`), so it needs no server and never sleeps.
 
-The Hobby (free) plan is for non-commercial use only, so a restaurant site should run on Pro.
+1. dash.cloudflare.com → **Workers & Pages → Create → Pages → Connect to Git** → choose the GitHub repository.
+2. **Build settings:** Framework preset _None_ (or _Next.js (Static HTML Export)_), build command `npm run build`, output directory `out`.
+3. **Environment variables (Production):**
+   - `NEXT_PUBLIC_SITE_URL` = the live address, e.g. `https://golden-bite.pages.dev` (later the custom domain)
+   - `NEXT_PUBLIC_POSTHOG_KEY` = the PostHog project key (`phc_…`)
+   - `NEXT_PUBLIC_POSTHOG_HOST` = `https://eu.i.posthog.com` only if the PostHog project is in the EU region (US is the default)
+   - `NODE_VERSION` = `22`
+4. **Save and Deploy.** Every push to `main` then redeploys automatically; pull requests get preview links.
+5. Custom domain: the Pages project → **Custom domains → Set up a domain**, then update `NEXT_PUBLIC_SITE_URL` and redeploy.
 
-## Visitor stats
+Security headers live in `public/_headers` (Cloudflare reads it). `npm start` serves the built site locally the same way, headers included.
 
-Vercel Web Analytics (cookie-free, no consent banner needed) is loaded only when the site runs on Vercel. It shows visitors, page views, referrers, countries and devices. These events are also recorded (Pro plan) in Analytics → Events, with no personal details:
+## Visitor stats (PostHog)
+
+PostHog runs in **cookie-free mode**: no cookies or browser storage, so no cookie banner is needed. It is only switched on when `NEXT_PUBLIC_POSTHOG_KEY` is set, so local work and tests send nothing.
+
+One-time PostHog setup: create a free project at posthog.com, then **Project settings → Web analytics → turn on "Cookieless server hash mode"** (required, or cookie-free events are ignored). Web analytics shows visitors, page views, referrers, devices; these events appear under **Activity / Product analytics**, with no personal details:
 
 | Event            | Data                                   |
 | ---------------- | -------------------------------------- |
@@ -159,5 +168,6 @@ Vercel Web Analytics (cookie-free, no consent banner needed) is loaded only when
 | Order sent       | items, total, fulfilment, payment mode |
 | Reorder          | items, total                           |
 | Catering enquiry | event type, guests                     |
+| Tour             | started, skipped or finished           |
 
 "Order sent" counts taps on **Send order on WhatsApp**; whether the customer then pressed send in WhatsApp is only visible in WhatsApp.

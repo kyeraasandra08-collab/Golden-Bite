@@ -1,6 +1,6 @@
-import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { business } from "@/lib/business";
+import { Analytics } from "@/components/Analytics";
 import "./globals.css";
 
 const description =
@@ -31,8 +31,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en-GH">
       <body>
         {children}
-        {/* Visitor stats: cookie-free, only switched on when the site runs on Vercel. */}
-        {process.env.VERCEL ? <Analytics /> : null}
+        {/* Visitor stats (PostHog, cookie-free); off unless NEXT_PUBLIC_POSTHOG_KEY is set. */}
+        <Analytics />
       </body>
     </html>
   );
