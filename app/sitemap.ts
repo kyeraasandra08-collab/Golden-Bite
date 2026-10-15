@@ -5,5 +5,8 @@ import { business } from "@/lib/business";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [{ url: business.siteUrl, changeFrequency: "weekly", priority: 1 }];
+  return [
+    { url: business.siteUrl, changeFrequency: "weekly", priority: 1 },
+    { url: `${business.siteUrl}/privacy`, changeFrequency: "yearly", priority: 0.2 },
+  ];
 }

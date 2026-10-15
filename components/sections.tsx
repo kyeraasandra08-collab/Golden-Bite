@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { business, telHref, whatsappHref } from "@/lib/business";
 import { BasketButton } from "./basket/MobileBasketBar";
 import { CateringForm } from "./CateringForm";
@@ -298,6 +299,7 @@ export function Footer() {
         <a href={generalHref} target="_blank" rel="noopener noreferrer">
           <WhatsAppIcon size={18} /> WhatsApp Golden Bite
         </a>
+        <Link href="/privacy">Privacy</Link>
       </div>
     </footer>
   );
