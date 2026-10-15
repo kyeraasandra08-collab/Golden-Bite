@@ -1586,6 +1586,10 @@ footer a:hover {
 .not-found .hero-actions {
   justify-content: center;
 }
+.not-found.privacy-page {
+  min-height: 0;
+  padding: 64px 20px 72px;
+}
 
 .clear-basket {
   margin-top: 12px;
