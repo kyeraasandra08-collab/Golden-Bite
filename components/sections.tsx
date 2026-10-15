@@ -16,6 +16,7 @@ import {
   MomoIcon,
   PhoneIcon,
   PinIcon,
+  ShieldIcon,
   StepsIcon,
 } from "./icons";
 import heroFlyer from "@/public/images/hero-flyer.webp";
@@ -299,8 +300,13 @@ export function Footer() {
         <a href={generalHref} target="_blank" rel="noopener noreferrer">
           <WhatsAppIcon size={18} /> WhatsApp Golden Bite
         </a>
-        <Link href="/privacy">Privacy</Link>
+        <Link href="/privacy">
+          <ShieldIcon size={18} /> Privacy
+        </Link>
       </div>
+      <p className="footer-copy">
+        © {new Date().getFullYear()} {business.name}. All rights reserved.
+      </p>
     </footer>
   );
 }

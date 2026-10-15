@@ -111,6 +111,14 @@ export const PinIcon = (p: IconProps) => (
   </Icon>
 );
 
+/** Privacy: a shield with a tick. */
+export const ShieldIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6l-7-3Z" />
+    <path d="m9 12 2 2 4-4" />
+  </Icon>
+);
+
 /** Mobile money: a phone with a coin on screen. */
 export const MomoIcon = (p: IconProps) => (
   <Icon {...p}>

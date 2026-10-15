@@ -1249,6 +1249,14 @@ footer .icon {
 .footer-line .icon {
   margin-top: 3px;
 }
+.footer-copy {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(201, 191, 174, 0.18);
+  font-size: 0.8rem;
+  text-align: center;
+}
 footer a:hover {
   color: var(--gold-bright);
 }
